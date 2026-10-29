@@ -9,7 +9,7 @@ PocketWin terá uma interface Android própria e uma camada de integração para
 1. **UI Android:** biblioteca de ambientes, importação de instaladores, estado do runtime, logs e configurações.
 2. **Gerenciador de ambientes:** diretórios, configurações por ambiente, ciclo de vida e limpeza.
 3. **Detector de capacidades:** ABI do Android, versão do sistema, RAM disponível e informações gráficas acessíveis por APIs públicas.
-4. **Adaptador de runtime:** interface interna para iniciar, parar e consultar o backend selecionado.
+4. **Adaptador de runtime:** interface interna para iniciar, parar e consultar o backend selecionado, incluindo a enumeração e o encerramento controlado de processos do ambiente.
 5. **Backend de compatibilidade:** inicialmente será escolhido após uma prova de conceito. Wine fornece APIs de compatibilidade Windows; Box64/Box86 podem traduzir executáveis de determinadas arquiteturas; QEMU oferece emulação/virtualização em cenários específicos.
 6. **Camada nativa por ABI:** bibliotecas compiladas para as ABIs Android suportadas. Binários nativos incompatíveis não podem ser carregados diretamente.
 
@@ -25,6 +25,14 @@ PocketWin terá uma interface Android própria e uma camada de integração para
 ## Estratégia de implementação
 
 Não escrever um emulador de CPU próprio como primeiro passo. Fazer uma prova de conceito com um runtime existente, documentar licenças e limitações e encapsular sua integração por uma interface interna para permitir substituir backends.
+
+## Gerenciamento de processos e memória
+
+- O gerenciador deve operar somente sobre processos pertencentes ao ambiente/runtime Windows controlado pelo PocketWin.
+- A ação em lote “Selecionar todos os aplicativos” deve excluir por padrão processos essenciais do Windows, serviços do runtime e processos cuja identidade não possa ser confirmada.
+- Não usar APIs Android para tentar encerrar outros aplicativos do telefone; o Android limita esse controle e isso não corresponde a liberar memória do ambiente Windows.
+- Exibir processo, PID, origem e motivo de proteção quando disponíveis; exigir confirmação antes de encerrar vários processos.
+- A memória recuperada é variável e deve ser medida após a ação, não estimada como garantia.
 
 ## Segurança
 
