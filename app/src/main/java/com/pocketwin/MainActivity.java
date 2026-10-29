@@ -95,6 +95,24 @@ public final class MainActivity extends Activity {
         deviceCard.addView(text("RAM disponível no sistema: " + formatBytes(availableRamBytes),
                 14, secondaryText, false), params(-1, -2));
 
+        LinearLayout processCard = card();
+        LinearLayout.LayoutParams processParams = params(-1, -2);
+        processParams.topMargin = dp(14);
+        root.addView(processCard, processParams);
+        processCard.addView(text("GERENCIAMENTO DE PROCESSOS", 12, accent, true));
+        processCard.addView(spacer(10));
+        processCard.addView(text("Liberar RAM", 18, primaryText, true));
+        processCard.addView(text(
+                "Quando o runtime Windows estiver integrado, o PocketWin poderá listar os processos do ambiente, selecionar em lote os processos de aplicativos e preservar os processos essenciais do Windows. Nenhum processo será encerrado nesta versão.",
+                14, secondaryText, false), params(-1, -2));
+        Button processButton = new Button(this);
+        processButton.setText("Gerenciador de processos — em desenvolvimento");
+        processButton.setAllCaps(false);
+        processButton.setEnabled(false);
+        LinearLayout.LayoutParams processButtonParams = params(-1, -2);
+        processButtonParams.topMargin = dp(12);
+        processCard.addView(processButton, processButtonParams);
+
         Button exportButton = new Button(this);
         exportButton.setText("Exportar diagnóstico");
         exportButton.setAllCaps(false);
