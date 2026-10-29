@@ -5,6 +5,7 @@
 - Branch principal: main
 - Etapa: fundação inicial do projeto Android, com build automatizado confirmado.
 - Runtime Windows: **não integrado**.
+- Gerenciador de processos: interface de preparação adicionada; a enumeração/seleção/encerramento real depende da integração do runtime.
 - APK de debug: **compilado e publicado como artefato do GitHub Actions** (run 40860585207; commit `f0fb7350fd19beb614ab208adb03438cc00cbde1`).
 - Artefato: `pocketwin-debug-apk`, válido até 2026-11-12; tamanho reportado pelo GitHub: 6.289 bytes.
 - Teste em dispositivo real: ainda não realizado; a geração do APK não confirma instalação nem execução no celular.
@@ -31,6 +32,7 @@ O run [40860585207](https://github.com/VNSANTS/PocketWin/actions/runs/4086058520
 - Avaliar primeiro um stack derivado do Winlator para uma prova de conceito local Android; QEMU de sistema permanece uma rota experimental separada.
 
 ## Próximos passos
+- Após a prova de conceito do runtime, implementar o gerenciador de processos restrito ao ambiente Windows, com seleção em lote que preserve processos essenciais.
 1. Baixar o APK de debug do [run bem-sucedido](https://github.com/VNSANTS/PocketWin/actions/runs/40860585207), instalar e validar inicialização/diagnóstico em um dispositivo Android.
 2. Registrar o resultado do teste real; corrigir problemas de interface, permissões ou compatibilidade observados.
 3. Inspecionar o repositório upstream escolhido, instruções de build, submódulos e licenças antes de incorporar componentes.
