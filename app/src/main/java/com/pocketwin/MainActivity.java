@@ -1,6 +1,8 @@
 package com.pocketwin;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -21,6 +23,9 @@ public final class MainActivity extends Activity {
     private final int primaryText = Color.rgb(242, 246, 255);
     private final int secondaryText = Color.rgb(163, 176, 198);
 
+    private long totalRamBytes;
+    private long availableRamBytes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,14 @@ public final class MainActivity extends Activity {
         getWindow().setNavigationBarColor(background);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(0);
+        }
+
+        ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        if (activityManager != null) {
+            activityManager.getMemoryInfo(memoryInfo);
+            totalRamBytes = memoryInfo.totalMem;
+            availableRamBytes = memoryInfo.availMem;
         }
 
         ScrollView scroll = new ScrollView(this);
@@ -77,23 +90,56 @@ public final class MainActivity extends Activity {
                 14, secondaryText, false), params(-1, -2));
         deviceCard.addView(text("Modelo: " + Build.MANUFACTURER + " " + Build.MODEL,
                 14, secondaryText, false), params(-1, -2));
+        deviceCard.addView(text("RAM total: " + formatBytes(totalRamBytes),
+                14, secondaryText, false), params(-1, -2));
+        deviceCard.addView(text("RAM disponível no sistema: " + formatBytes(availableRamBytes),
+                14, secondaryText, false), params(-1, -2));
+
+        Button exportButton = new Button(this);
+        exportButton.setText("Exportar diagnóstico");
+        exportButton.setAllCaps(false);
+        LinearLayout.LayoutParams exportParams = params(-1, -2);
+        exportParams.topMargin = dp(16);
+        root.addView(exportButton, exportParams);
+        exportButton.setOnClickListener(view -> shareDiagnosticReport());
 
         Button runtimeButton = new Button(this);
         runtimeButton.setText("Runtime Windows — em desenvolvimento");
         runtimeButton.setAllCaps(false);
         runtimeButton.setEnabled(false);
         LinearLayout.LayoutParams buttonParams = params(-1, -2);
-        buttonParams.topMargin = dp(20);
+        buttonParams.topMargin = dp(12);
         root.addView(runtimeButton, buttonParams);
 
         TextView footer = text(
-                "Próxima etapa: validar o build automatizado e selecionar um runtime compatível.",
+                "Próxima etapa: validar este diagnóstico no dispositivo e selecionar um runtime compatível.",
                 12, secondaryText, false);
         LinearLayout.LayoutParams footerParams = params(-1, -2);
         footerParams.topMargin = dp(20);
         root.addView(footer, footerParams);
 
         setContentView(scroll);
+    }
+
+    private void shareDiagnosticReport() {
+        String report = "Relatório de diagnóstico — PocketWin\n"
+                + "Fabricante/modelo: " + Build.MANUFACTURER + " " + Build.MODEL + "\n"
+                + "Android: " + Build.VERSION.RELEASE + " (API " + Build.VERSION.SDK_INT + ")\n"
+                + "ABIs suportadas: " + supportedAbis() + "\n"
+                + "RAM total reportada: " + formatBytes(totalRamBytes) + "\n"
+                + "RAM disponível no sistema: " + formatBytes(availableRamBytes) + "\n"
+                + "Runtime Windows: não integrado; execução de EXE não disponível nesta versão.\n";
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Diagnóstico PocketWin");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, report);
+        startActivity(Intent.createChooser(sendIntent, "Compartilhar diagnóstico"));
+    }
+
+    private String formatBytes(long bytes) {
+        if (bytes <= 0) return "indisponível";
+        double gib = bytes / (1024.0 * 1024.0 * 1024.0);
+        return String.format(Locale.ROOT, "%.2f GiB", gib);
     }
 
     private LinearLayout card() {
