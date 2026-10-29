@@ -3,10 +3,11 @@
 ## Estado verificado
 - Repositório: VNSANTS/PocketWin
 - Branch principal: main
-- Etapa: fundação inicial do projeto Android.
+- Etapa: fundação inicial do projeto Android, com build automatizado confirmado.
 - Runtime Windows: **não integrado**.
-- APK: **build ainda não verificado**.
-- Teste em dispositivo real: ainda não realizado.
+- APK de debug: **compilado e publicado como artefato do GitHub Actions** (run 40860585207; commit `f0fb7350fd19beb614ab208adb03438cc00cbde1`).
+- Artefato: `pocketwin-debug-apk`, válido até 2026-11-12; tamanho reportado pelo GitHub: 6.289 bytes.
+- Teste em dispositivo real: ainda não realizado; a geração do APK não confirma instalação nem execução no celular.
 
 ## Base técnica atual
 - Aplicativo Android nativo em Java.
@@ -18,7 +19,7 @@
 - Pesquisa inicial de runtime: RUNTIME_RESEARCH.md.
 
 ## Verificação do CI
-O arquivo do workflow foi confirmado no branch main. No momento da última verificação, ainda não havia status de build associado ao commit do workflow. Portanto, a compilação não deve ser considerada bem-sucedida até que um run seja observado e o artefato APK seja encontrado.
+O run [40860585207](https://github.com/VNSANTS/PocketWin/actions/runs/40860585207) terminou com sucesso. Todas as etapas concluíram, incluindo `Assemble debug APK` e `Upload debug APK`; o artefato `pocketwin-debug-apk` foi encontrado e não está expirado. Isso confirma apenas que o protótipo Android compila e que o APK foi empacotado. Ainda não confirma instalação, estabilidade ou execução de programas Windows.
 
 ## Decisões atuais
 - Nome de trabalho: PocketWin.
@@ -30,11 +31,11 @@ O arquivo do workflow foi confirmado no branch main. No momento da última verif
 - Avaliar primeiro um stack derivado do Winlator para uma prova de conceito local Android; QEMU de sistema permanece uma rota experimental separada.
 
 ## Próximos passos
-1. Verificar o primeiro run de GitHub Actions e corrigir erros usando logs reais.
-2. Baixar e instalar o APK de debug quando o artefato estiver disponível.
-3. Validar inicialização e diagnóstico em pelo menos um dispositivo Android.
-4. Inspecionar o repositório upstream escolhido, as instruções de build, os submódulos e todas as licenças antes de copiar ou distribuir componentes.
-5. Escolher uma prova de conceito mínima e legalmente redistribuível para executar um programa Windows real.
+1. Baixar o APK de debug do [run bem-sucedido](https://github.com/VNSANTS/PocketWin/actions/runs/40860585207), instalar e validar inicialização/diagnóstico em um dispositivo Android.
+2. Registrar o resultado do teste real; corrigir problemas de interface, permissões ou compatibilidade observados.
+3. Inspecionar o repositório upstream escolhido, instruções de build, submódulos e licenças antes de incorporar componentes.
+4. Definir uma prova de conceito mínima para executar um programa Windows real, começando por uma combinação de ABI/backend suportada e redistribuível legalmente.
+5. Documentar claramente os limites de compatibilidade e manter builds automatizados.
 
 ## Regras de continuidade
 - Atualizar este arquivo após cada etapa significativa.
