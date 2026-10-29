@@ -30,7 +30,6 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      # Locate the SDK manager from the Android SDK installed on the runner.
       - name: Locate Android SDK tools
         shell: bash
         run: |
@@ -49,7 +48,11 @@ jobs:
 
       - name: Accept Android SDK licenses
         shell: bash
-        run: yes | "$SDKMANAGER" --licenses
+        run: |
+          set +o pipefail
+          yes | "$SDKMANAGER" --licenses
+          status=${PIPESTATUS[1]}
+          exit "$status"
 
       - name: Install Android SDK packages
         shell: bash
