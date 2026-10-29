@@ -31,13 +31,13 @@ gradle assembleDebug
 
 APK esperado: `app/build/outputs/apk/debug/app-debug.apk`.
 
-## Continuidade do projeto
-
-Antes de implementar uma nova etapa, leia:
+## Documentação de continuidade
 
 1. [PROJECT_STATUS.md](PROJECT_STATUS.md)
 2. [ROADMAP.md](ROADMAP.md)
 3. [ARCHITECTURE.md](ARCHITECTURE.md)
+4. [RUNTIME_RESEARCH.md](RUNTIME_RESEARCH.md)
+5. [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Não considere uma funcionalidade concluída sem evidência de build ou teste. O runtime de compatibilidade será uma etapa separada; não se deve afirmar que programas Windows funcionam até que isso seja demonstrado.
 
