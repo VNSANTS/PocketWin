@@ -3,21 +3,23 @@
 ## Fase 1 — Fundação Android
 - [x] Criar estrutura inicial do projeto.
 - [x] Adicionar documentação de arquitetura e continuidade.
-- [x] Configurar build automatizado de debug.
+- [x] Adicionar workflow de build automatizado de debug.
+- [x] Registrar pesquisa inicial de runtimes em RUNTIME_RESEARCH.md.
 - [ ] Confirmar que o workflow termina com sucesso.
 - [ ] Instalar e abrir o APK em um dispositivo real.
 
 **Saída exigida:** APK instalável e inicialização verificada.
 
 ## Fase 2 — Diagnóstico de dispositivo
-- [ ] Detectar ABI/arquitetura, versão do Android, memória e recursos disponíveis.
-- [ ] Exibir os dados no aplicativo sem solicitar permissões desnecessárias.
+- [x] Exibir ABI(s), versão do Android e modelo na interface inicial.
+- [ ] Adicionar memória e informações de hardware acessíveis por APIs públicas.
 - [ ] Criar relatório de diagnóstico exportável.
 
 **Saída exigida:** relatório verificável de compatibilidade do dispositivo.
 
 ## Fase 3 — Prova de conceito do runtime
-- [ ] Comparar soluções existentes e suas licenças.
+- [ ] Inspecionar um upstream específico, tags/releases, submódulos e instruções de build.
+- [ ] Verificar licenças e obrigações de redistribuição de todas as dependências.
 - [ ] Escolher um alvo mínimo de aplicação Windows.
 - [ ] Integrar um backend compatível com Android.
 - [ ] Executar e documentar um primeiro programa de teste autorizado.
@@ -44,3 +46,6 @@
 - [ ] Interface adaptada a toque, teclado e mouse.
 - [ ] Matriz de dispositivos e testes de regressão.
 - [ ] Revisão de licenças antes de qualquer distribuição pública.
+
+## Regra de conclusão
+Nenhuma fase será considerada concluída sem evidência adequada. Um build verde prova compilação; não prova execução de programas Windows nem compatibilidade universal.
