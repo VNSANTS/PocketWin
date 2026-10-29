@@ -5,15 +5,17 @@
 - [x] Adicionar documentação de arquitetura e continuidade.
 - [x] Adicionar workflow de build automatizado de debug.
 - [x] Registrar pesquisa inicial de runtimes em RUNTIME_RESEARCH.md.
-- [ ] Confirmar que o workflow termina com sucesso.
+- [x] Confirmar que o workflow termina com sucesso (run 40860585207; APK publicado como artefato).
 - [ ] Instalar e abrir o APK em um dispositivo real.
 
 **Saída exigida:** APK instalável e inicialização verificada.
 
 ## Fase 2 — Diagnóstico de dispositivo
 - [x] Exibir ABI(s), versão do Android e modelo na interface inicial.
-- [ ] Adicionar memória e informações de hardware acessíveis por APIs públicas.
-- [ ] Criar relatório de diagnóstico exportável.
+- [x] Adicionar RAM total/disponível por APIs públicas do Android.
+- [ ] Adicionar informações gráficas/hardware adicionais quando acessíveis e confiáveis.
+- [x] Criar relatório de diagnóstico compartilhável em texto.
+- [ ] Validar o relatório exportado em dispositivo real.
 
 **Saída exigida:** relatório verificável de compatibilidade do dispositivo.
 
