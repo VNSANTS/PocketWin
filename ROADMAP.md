@@ -28,11 +28,15 @@
 
 **Saída exigida:** aplicação Windows real executada, não apenas uma tela simulada.
 
-## Fase 4 — Gerenciamento de ambientes
+## Fase 4 — Gerenciamento de ambientes e processos
 - [ ] Criar e remover ambientes isolados.
 - [ ] Importar instaladores compatíveis.
 - [ ] Exibir progresso, logs e mensagens de erro.
 - [ ] Implementar backup e limpeza segura dos dados do ambiente.
+- [ ] Criar gerenciador de processos do runtime Windows com lista atualizável, seleção individual e opção “Selecionar todos os aplicativos”.
+- [ ] Excluir automaticamente processos essenciais do Windows/runtime da seleção em lote; permitir encerrar somente processos de aplicativos identificados com segurança.
+- [ ] Mostrar aviso e confirmação antes de encerrar processos, e atualizar a estimativa de RAM após a ação; nunca prometer liberação exata de memória.
+- [ ] Restringir o encerramento aos processos gerenciados pelo ambiente PocketWin; não tentar encerrar processos do Android ou de outros aplicativos.
 
 ## Fase 5 — Compatibilidade multi-arquitetura
 - [ ] Detectar ABI do Android e requisitos do executável.
