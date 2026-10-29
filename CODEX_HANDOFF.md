@@ -11,7 +11,7 @@ Leia este documento e os arquivos de projeto antes de modificar qualquer coisa.
 - Use GitHub Actions para builds e mantenha a documentação atualizada.
 
 ## Estado real
-O app é somente uma fundação de interface/diagnóstico. **Ainda não existe runtime Windows integrado e não foi demonstrada execução de EXE.** Build do APK e teste em dispositivo ainda não estão confirmados.
+O app é somente uma fundação de interface/diagnóstico. **Ainda não existe runtime Windows integrado e não foi demonstrada execução de EXE.** Build do APK está confirmado no GitHub Actions; teste em dispositivo ainda não foi realizado.
 
 Leia: `README.md`, `PROJECT_STATUS.md`, `ROADMAP.md`, `ARCHITECTURE.md`, `RUNTIME_RESEARCH.md` e `CONTRIBUTING.md` se existir. Confirme o conteúdo atual antes de editar.
 
@@ -22,7 +22,7 @@ Base técnica conhecida:
 - APK esperado: `app/build/outputs/apk/debug/app-debug.apk`
 - Artefato esperado: `pocketwin-debug-apk`
 
-## Prioridade imediata: corrigir CI e gerar APK
+## CI: concluído — não repetir correções sem necessidade
 Workflow: https://github.com/VNSANTS/PocketWin/blob/main/.github/workflows/android.yml
 
 Histórico:
@@ -33,19 +33,14 @@ Histórico:
 5. Run no commit `e9c01455010c20e13963ac26e8c74b2cef41f90e` localizou o SDK manager e aceitou as licenças, mas falhou com `yes: standard output: Broken pipe`, pois `yes | sdkmanager --licenses` era executado com `pipefail`.
 6. O commit `3447170a38c8bdd7b67c408734e7cfcd7547f8d8` alterou o passo para usar `PIPESTATUS` e preservar o status do sdkmanager.
 
-Run do último commit conhecido:
-https://github.com/VNSANTS/PocketWin/actions/runs/40860407043
+Run confirmado com sucesso: https://github.com/VNSANTS/PocketWin/actions/runs/40860585207
+- Job `Build debug APK`: sucesso.
+- Etapas `Assemble debug APK` e `Upload debug APK`: sucesso.
+- Artefato `pocketwin-debug-apk`: listado, não expirado, disponível até 2026-11-12.
+- Commit compilado: `f0fb7350fd19beb614ab208adb03438cc00cbde1`.
+- O run anterior `40860407043` também terminou em sucesso.
 
-**Primeira tarefa:** consulte agora o status, os logs e os artefatos desse run. Na última verificação estava em andamento. Não assuma que passou ou falhou sem consultar.
-
-Se falhar, identifique a primeira causa real nos logs e corrija-a. Evite alterações às cegas. Não use `|| true` para mascarar falhas. Garanta que o workflow:
-1. localiza `sdkmanager`;
-2. aceita licenças sem falhar pelo Broken pipe de `yes`;
-3. instala `platform-tools`, `platforms;android-35` e `build-tools;35.0.0`;
-4. executa `gradle --no-daemon --stacktrace assembleDebug`;
-5. publica o APK como `pocketwin-debug-apk`.
-
-Só considere concluído quando o job terminar com sucesso **e** o artefato APK estiver listado e disponível. Atualize `PROJECT_STATUS.md` com o commit e resultado verificado.
+O problema do pipeline foi resolvido. Não volte a alterar o workflow sem evidência de um novo defeito. O `PROJECT_STATUS.md` já registra o build verificado.
 
 ## Depois do build
 - Compartilhe o link do run/artefato para baixar o APK.
@@ -65,9 +60,10 @@ Antes de incorporar componentes externos, inspecione o upstream oficial, requisi
 - Atualizar `PROJECT_STATUS.md` e documentos relacionados após cada etapa.
 - Nunca inventar resultados de build, instalação ou testes.
 
-## Critério de conclusão da etapa atual
-- [ ] Workflow termina em sucesso.
-- [ ] APK `app-debug.apk` é gerado.
-- [ ] Artefato `pocketwin-debug-apk` está disponível.
-- [ ] `PROJECT_STATUS.md` registra commit e resultado verificados.
-- [ ] Próximo passo é instalação/teste real no Android, seguido de uma POC de runtime.
+## Critério de conclusão da etapa CI — concluída
+- [x] Workflow termina em sucesso.
+- [x] APK debug é gerado.
+- [x] Artefato `pocketwin-debug-apk` está disponível.
+- [x] `PROJECT_STATUS.md` registra commit e resultado verificados.
+- [ ] Instalação e teste real no Android.
+- [ ] POC de runtime e execução comprovada de um programa Windows.
