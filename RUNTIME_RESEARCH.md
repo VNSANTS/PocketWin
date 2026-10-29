@@ -51,3 +51,16 @@ Do not vendor a runtime until we have:
 - established which host ABIs can actually be built and run;
 - identified the smallest legally distributable test executable;
 - defined build, install, launch, and failure-log acceptance criteria.
+
+
+## Compatibilidade com o dispositivo de desenvolvimento
+
+O dispositivo de desenvolvimento reportado pelo usuário é o Infinix Hot 50i (X6531B), com MediaTek Helio G81 e GPU Mali-G52 MC2. A página de especificações da Infinix confirma o Helio G81; uma ficha técnica independente identifica a GPU Mali-G52 MC2 (referências: https://www.meuinfinix.com.br/smartphone-infinix-hot-50i e https://support.halabtech.com/specs/infinix-hot-50i).
+
+A variante Winlator WB64 consultada declara como requisitos mínimos Snapdragon 460 ou superior e GPU Adreno 610 ou superior, além de Vulkan 1.1. Portanto, **não devemos presumir que essa distribuição funcione no Hot 50i**; o requisito de GPU publicado não corresponde ao Mali deste aparelho. Isso não prova que todo runtime Winlator seja impossível, mas torna obrigatório verificar o backend gráfico real e testar no aparelho antes de escolher essa variante (fonte: https://github.com/winebox64/winlator).
+
+### Decisão prática
+- Manter o build Android leve e independente do runtime.
+- Usar o PocketWin para recolher diagnóstico real (ABI, RAM, Android e modelo) antes de decidir qual backend é viável.
+- Investigar separadamente suporte Vulkan/Mali e variantes de runtime com backend compatível; não prometer desempenho nem execução no Hot 50i antes de um teste.
+- Se o primeiro runtime não suportar o hardware do usuário, documentar a incompatibilidade em vez de forçar uma integração que só funciona em Snapdragon/Adreno.
